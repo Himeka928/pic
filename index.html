@@ -1,0 +1,41 @@
+
+<html>
+  <head> 
+    <title>淡江拉麵店_拉麵菜單</title>
+    <link rel="stylesheet" href="vue.css"/>
+  </head>
+  <body>                 
+    <div id="app">
+      <div class="control"> 
+        <label>最小價錢</label>
+        <input class="w80" v-model.number="minPrice"/>
+        <label>最大價錢</label>
+        <input class="w80" v-model.number="maxPrice"/>
+        <label>基礎價錢</label>
+        <input class="w80" v-model.number="basePrice"/>
+        <label>服務費</label>
+        <input class="w80" v-model.number="serviceFee"/>
+        <label>搜尋文字</label>
+        <input class="w80" v-model.number="keyword" placeholder="請輸入關鍵字"/>
+        <hr/><span v-for="card,cid in cards">
+          <input type="checkbox" v-model="card.soldOut"/><span>{{card.title}}</span>
+          <input class="w80" v-model.number="card.price"/></span>
+      </div>
+      <div class="menu">
+        <div class="cards">
+          <div class="card" v-for="card in cards" v-if="card.price + basePrice&gt;=minPrice &amp;&amp; card.price + basePrice&lt;=maxPrice &amp;&amp; card.title.indexOf(keyword)!=-1"><img class="cover" :src="card.cover"/>
+            <div class="info">
+              <h1>{{card.title}}</h1>
+              <div class="soldOut" v-show="card.soldOut">已售完</div>
+            </div>
+            <div class="price">{{card.price + basePrice }}$ 
+              <div class="othor">( + {{serviceFee}} %服務費)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.8/vue.min.js"></script>
+    <script src="vue.js"></script>
+  </body>
+</html>
